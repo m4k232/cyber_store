@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSneaks | Premium Custom Sneakers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Premium Neon Background Orbs -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="logo">CyberSneaks</div>
+            <button id="cart-toggle" class="cart-btn">
+                🛒 Cart <span id="cart-badge">0</span>
+            </button>
+        </nav>
+        <nav id="category-tabs" class="category-nav">
+            <button class="cat-btn active" data-category="all">ALL PRODUCTS</button>
+            <button class="cat-btn" data-category="sneakers">SNEAKERS</button>
+            <button class="cat-btn" data-category="hoodies">HOODIES</button>
+            <button class="cat-btn" data-category="tshirts">T-SHIRTS</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="hero">
+            <h1>Step into the Future.</h1>
+            <p>Premium customized apparel engineered for the digital age.</p>
+        </div>
+
+        <section id="products-grid" class="grid"></section>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-layout">
+                <div class="modal-left">
+                    <img id="modal-image" src="" alt="Product Image">
+                </div>
+                <div class="modal-right">
+                    <h2 id="modal-title"></h2>
+                    <div id="modal-price" class="modal-price"></div>
+                    
+                    <div class="size-selector">
+                        <div class="size-selector-header">
+                            <h4>Select Size</h4>
+                            <button id="size-guide-btn" class="size-guide-link" type="button">Size Guide</button>
+                        </div>
+                        <div class="size-grid" id="modal-size-grid">
+                            <!-- Sizes dynamically injected here -->
+                        </div>
+                        
+                        <!-- Size Guide Popover (Hidden by default) -->
+                        <div id="size-guide-popover" class="size-guide-popover hidden">
+                            <div class="popover-header">
+                                <h5>Size Matrix</h5>
+                                <button id="close-size-guide" class="popover-close" type="button">&times;</button>
+                            </div>
+                            <table class="size-guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>EU</th>
+                                        <th>US (M)</th>
+                                        <th>US (W)</th>
+                                        <th>UK</th>
+                                        <th>CM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>39</td><td>6.5</td><td>8.0</td><td>5.5</td><td>24.5</td></tr>
+                                    <tr><td>40</td><td>7.0</td><td>8.5</td><td>6.0</td><td>25.0</td></tr>
+                                    <tr><td>41</td><td>8.0</td><td>9.5</td><td>7.0</td><td>26.0</td></tr>
+                                    <tr><td>42</td><td>8.5</td><td>10.0</td><td>7.5</td><td>26.5</td></tr>
+                                    <tr><td>43</td><td>9.5</td><td>11.0</td><td>8.5</td><td>27.5</td></tr>
+                                    <tr><td>44</td><td>10.0</td><td>11.5</td><td>9.0</td><td>28.0</td></tr>
+                                    <tr><td>45</td><td>11.0</td><td>12.5</td><td>10.0</td><td>29.0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="modal-tabs">
+                        <div class="tab-headers">
+                            <button class="tab-btn active" data-tab="features">Features</button>
+                            <button class="tab-btn" data-tab="shipping">Shipping & Delivery</button>
+                            <button class="tab-btn" data-tab="returns">Returns</button>
+                        </div>
+                        <div class="tab-content active" id="tab-features">
+                            <p id="modal-description"></p>
+                            <p style="margin-top: 1rem; color: #b026ff; font-size: 0.85rem;">Constructed with quantum-threaded materials designed to sync with your body’s bio-rhythms. The ultra-lightweight chassis ensures zero drag while traversing the neon grid, merging high-fashion aesthetics with cybernetic utility.</p>
+                            <p style="margin-top: 1rem; color: #b026ff; font-size: 0.85rem;">Constructed with quantum-threaded materials designed to sync with your body’s bio-rhythms. The ultra-lightweight chassis ensures zero drag while traversing the neon grid, merging high-fashion aesthetics with cybernetic utility.</p>
+                        </div>
+                        <div class="tab-content" id="tab-shipping">
+                            <p>Premium cyberglow shipping via autonomous drones. Expected delivery: 2-4 cycles.</p>
+                        </div>
+                        <div class="tab-content" id="tab-returns">
+                            <p>30-day neural sync return policy. Product must be in factory-reset condition.</p>
+                        </div>
+                    </div>
+                    <button id="modal-add-to-cart" class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal hidden">
+        <div class="modal-overlay" id="checkout-overlay"></div>
+        <div class="modal-content checkout-content">
+            <button class="modal-close" id="close-checkout">&times;</button>
+            
+            <!-- Success Screen inside Modal (Initially Hidden) -->
+            <div id="checkout-success-view" class="success-screen hidden">
+                <div class="success-content">
+                    <div class="success-icon">✓</div>
+                    <h3>TRANSACTION AUTHORIZED</h3>
+                    <p>Your coordinates have been registered. A dispatch drone is preparing for launch.</p>
+                    <button id="close-checkout-success-btn" class="checkout-success-btn">CLOSE VAULT</button>
+                </div>
+            </div>
+
+            <!-- Form Layout (Widescreen Split) -->
+            <div class="checkout-layout">
+                <!-- Left Column: Mock Account Login -->
+                <div class="checkout-left">
+                    <h3>SECURE SEC-AUTH</h3>
+                    <p class="section-desc">Authenticate to sync order with your digital profile.</p>
+                    <div class="auth-buttons">
+                        <button class="auth-btn google-btn" type="button">
+                            <img src="https://www.google.com/favicon.ico" alt="Google" width="16" height="16"> Sign in with Google
+                        </button>
+                        <button class="auth-btn telegram-btn" type="button">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.89 1.2-5.33 3.52-.5.35-.96.52-1.37.5-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.38-.49 1.04-.75 4.05-1.76 6.75-2.92 8.1-3.48 3.85-1.6 4.65-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45.02.07.02.13.01.3z"/></svg> Sign in with Telegram
+                        </button>
+                    </div>
+                    <div class="auth-divider">
+                        <span>OR CONTINUE AS GUEST</span>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Delivery Form -->
+                <div class="checkout-right">
+                    <h3>DELIVERY DATA</h3>
+                    <p class="section-desc">Specify coordinates for drone deployment.</p>
+                    
+                    <form id="checkout-modal-form" class="checkout-modal-form">
+                        <div class="form-group">
+                            <label for="checkout-name">Full Name</label>
+                            <input type="text" id="checkout-name" placeholder="Neo Thorne" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="checkout-phone">Phone Number</label>
+                            <input type="tel" id="checkout-phone" placeholder="+1 555 0199" required>
+                            <small class="hint">Phone number must start with '+'</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="checkout-country">Country</label>
+                            <input type="text" id="checkout-country" placeholder="United Republic of Japan" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="checkout-address">Full Delivery Address</label>
+                            <textarea id="checkout-address" placeholder="Sector 7, Neo-Tokyo, Block B-12" required></textarea>
+                        </div>
+                        
+                        <button type="submit" id="submit-order-btn" class="checkout-submit-btn">AUTHORIZE ORDER</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-overlay" class="overlay hidden"></div>
+    <aside id="cart-sidebar" class="sidebar hidden">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button id="close-cart" class="close-btn">&times;</button>
+        </div>
+        
+        <div id="cart-active-view" class="cart-active-view">
+            <div id="cart-items" class="cart-items"></div>
+            
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                
+                <button id="proceed-to-checkout-btn" class="checkout-btn" disabled>Proceed to Checkout</button>
+            </div>
+        </div>
+    </aside>
+
+    <script src="app.js"></script>
+</body>
+</html>
